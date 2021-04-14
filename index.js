@@ -1,3 +1,10 @@
+class Node {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+}
+
 class LinkedList {
   constructor() {
     this.head = null;
@@ -5,10 +12,7 @@ class LinkedList {
   }
 
   append(data) {
-    const node = {
-      data,
-      next: null,
-    };
+    const node = new Node(data);
 
     if (this.tail) {
       this.tail.next = node;
@@ -22,15 +26,39 @@ class LinkedList {
   }
 
   prepend(data) {
-    const node = {
-      data,
-      next: this.head,
-    };
-
+    const node = new Node(data, this.head);
     this.head = node;
 
     if (!this.tail) {
       this.tail = node;
+    }
+  }
+
+  toArray() {
+    const output = [];
+    let current = this.head;
+
+    while (current) {
+      output.push(current);
+      current = current.next;
+    }
+
+    return output;
+  }
+
+  find(data) {
+    if (!this.head) {
+      return;
+    }
+
+    let current = this.head;
+
+    while (current) {
+      if (current.data === data) {
+        return current;
+      }
+
+      current = current.next;
     }
   }
 }
